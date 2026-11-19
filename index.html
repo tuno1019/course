@@ -6,55 +6,234 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src 'none'; form-action 'none'; base-uri 'none'">
 <title>多語系摺頁｜排版觀察紀錄表</title>
 <style>
-:root{--ink:#1a3340;--muted:#637681;--line:#d9e3e5;--accent:#146f79;--paper:#fff;--bg:#edf3f2}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:15px;line-height:1.6}
-.toolbar{position:sticky;top:0;z-index:10;background:#163640;color:#fff;padding:12px max(20px,calc((100vw - 980px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 3px 14px #1232}.toolbar .brand{font-weight:700}.toolbar .minor{font-size:12px;color:#c7dade}.actions{display:flex;gap:8px;flex-wrap:wrap}button{font:inherit;cursor:pointer;border:1px solid #b8d0d5;background:white;color:#18404a;padding:8px 14px;border-radius:9px;font-weight:650}button.primary{background:#c7f3e7;border-color:#c7f3e7}button:hover{filter:brightness(.95)}.wrap{max-width:980px;margin:24px auto 60px;padding:0 16px}.intro{padding:22px 26px;background:#fff;border-radius:15px;border:1px solid var(--line);margin-bottom:16px}.eyebrow{letter-spacing:.14em;color:var(--accent);font-size:12px;font-weight:800}h1{font-size:27px;line-height:1.3;margin:5px 0 8px}h2{font-size:19px;margin:0 0 7px}p{margin:0}.hint{color:var(--muted);font-size:13px}.sheet{background:var(--paper);border:1px solid var(--line);border-radius:15px;margin:16px 0;padding:24px 26px;box-shadow:0 4px 18px #31515a0d}.sectionhead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:2px solid #d3e6e4;padding-bottom:10px;margin-bottom:18px}.no{color:var(--accent);font-size:13px;font-weight:800;letter-spacing:.05em}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 20px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field.full{grid-column:1/-1}label.title{font-weight:700;font-size:13px}input[type=text],input[type=number],textarea,select{width:100%;font:inherit;color:var(--ink);background:#fcfefe;border:1px solid #bed1d3;border-radius:8px;padding:9px 11px;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #146f7920}textarea{min-height:66px;resize:vertical}.measure{width:100%;border-collapse:collapse;margin:10px 0}.measure th,.measure td{border:1px solid var(--line);padding:8px;vertical-align:top}.measure th{background:#edf5f3;text-align:left;font-size:13px}.measure td input{min-width:0}.foot{color:var(--muted);font-size:12px;margin-top:9px}.notification{background:#d9f1eb;border:1px solid #a2d5c7;padding:12px 16px;border-radius:10px;margin-bottom:16px;font-size:13px}.photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.photo-card{border:1px solid var(--line);border-radius:10px;padding:11px;min-width:0;background:#fafdfd}.photo-card h3{font-size:14px;margin:0 0 8px}.photo-input{width:100%;font-size:12px}.photo-preview{display:none;margin-top:10px;width:100%;max-height:260px;object-fit:contain;background:#eef4f3;border-radius:6px}.photo-preview.visible{display:block}.photo-note{width:100%;margin-top:9px;min-height:50px}.photo-remove{font-size:12px;margin-top:7px;padding:4px 8px}.photo-status{font-size:12px;color:var(--muted);margin-top:4px}.print-only{display:none}.print-value{white-space:pre-wrap;overflow-wrap:anywhere}.print-foot{display:none}.divider-note{margin-top:10px;font-size:13px;color:var(--muted)}
-@media(max-width:680px){.photo-grid{grid-template-columns:1fr}.toolbar{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}.intro,.sheet{padding:18px}.wrap{margin-top:15px}h1{font-size:23px}.measure{font-size:12px}.measure th,.measure td{padding:5px}}
+:root{
+  --ink:#3b2a20;--muted:#7a6352;--line:#e4d5c3;--accent:#8b5a2b;--accent-soft:#f3e4d0;
+  --paper:#fffaf4;--bg:#f2e9dd;--bar:#4a3426;--bar-text:#f7ecdf;--bar-minor:#dcc6ae;
+  --btn-border:#d8c0a3;--primary:#e9c897;--field-bg:#fffdf9;--field-line:#d6c1a8;
+  --toolbar-h:84px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:1.5rem;line-height:1.6}
+
+/* 頂端工具列：三個按鈕維持原位 */
+.toolbar{position:sticky;top:0;z-index:20;background:var(--bar);color:var(--bar-text);padding:12px max(20px,calc((100vw - 1320px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 3px 14px #2a1a1033;flex-wrap:wrap}
+.toolbar .brand{font-weight:700}
+.toolbar .minor{font-size:1.5rem;color:var(--bar-minor)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+button{font:inherit;font-size:1.5rem;cursor:pointer;border:1px solid var(--btn-border);background:#fffaf4;color:var(--bar);padding:8px 16px;border-radius:10px;font-weight:650}
+button.primary{background:var(--primary);border-color:var(--primary)}
+button:hover{filter:brightness(.95)}
+
+/* 版面：左側選單＋右側內容 */
+.layout{max-width:1320px;margin:24px auto 60px;padding:0 16px;display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}
+.sidenav{position:sticky;top:calc(var(--toolbar-h) + 16px);background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:14px;max-height:calc(100vh - var(--toolbar-h) - 32px);overflow:auto}
+.sidenav .navtitle{font-weight:800;color:var(--accent);padding:4px 10px 10px;border-bottom:2px solid var(--accent-soft);margin-bottom:8px}
+.sidenav ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.sidenav a{display:flex;gap:10px;align-items:baseline;padding:9px 12px;border-radius:10px;color:var(--ink);text-decoration:none;line-height:1.35}
+.sidenav a .n{color:var(--accent);font-weight:800;min-width:2.2em}
+.sidenav a:hover{background:var(--accent-soft)}
+.sidenav a.active{background:var(--accent);color:#fff}
+.sidenav a.active .n{color:#fbe6cc}
+
+.wrap{min-width:0}
+.sheet,.intro{scroll-margin-top:calc(var(--toolbar-h) + 16px)}
+.intro{padding:22px 26px;background:var(--paper);border-radius:15px;border:1px solid var(--line);margin-bottom:16px}
+.eyebrow{letter-spacing:.1em;color:var(--accent);font-size:1.5rem;font-weight:800}
+h1{font-size:2.4rem;line-height:1.3;margin:5px 0 8px}
+h2{font-size:1.9rem;margin:0 0 7px}
+h3{font-size:1.5rem}
+p{margin:0}
+.hint{color:var(--muted);font-size:1.5rem}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:15px;margin:16px 0;padding:24px 26px;box-shadow:0 4px 18px #5a3b2410}
+.sectionhead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:2px solid var(--accent-soft);padding-bottom:10px;margin-bottom:18px}
+.no{color:var(--accent);font-weight:800;letter-spacing:.05em;margin-right:.3em}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 22px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field.full{grid-column:1/-1}
+label.title{font-weight:700;font-size:1.5rem}
+input[type=text],input[type=number],textarea,select{width:100%;font:inherit;font-size:1.5rem;color:var(--ink);background:var(--field-bg);border:1px solid var(--field-line);border-radius:9px;padding:10px 12px;outline:none}
+input::placeholder,textarea::placeholder{color:#a8927f}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #8b5a2b26}
+textarea{min-height:110px;resize:vertical}
+.measure{width:100%;border-collapse:collapse;margin:10px 0}
+.measure th,.measure td{border:1px solid var(--line);padding:8px;vertical-align:top;font-size:1.5rem}
+.measure th{background:var(--accent-soft);text-align:left}
+.measure td input{min-width:0}
+.foot{color:var(--muted);font-size:1.5rem;margin-top:10px}
+.notification{background:#f6e6d1;border:1px solid #e0c3a0;padding:14px 18px;border-radius:12px;margin-bottom:16px;font-size:1.5rem}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.photo-card{border:1px solid var(--line);border-radius:12px;padding:12px;min-width:0;background:#fffdf9}
+.photo-card h3{margin:0 0 8px}
+.photo-input{width:100%;font-size:1.5rem}
+.photo-preview{display:none;margin-top:10px;width:100%;max-height:300px;object-fit:contain;background:#f4ebdf;border-radius:8px}
+.photo-preview.visible{display:block}
+.photo-note{width:100%;margin-top:10px;min-height:90px}
+.photo-remove{margin-top:8px;padding:4px 10px}
+.photo-status{font-size:1.5rem;color:var(--muted);margin-top:4px}
+.print-value{white-space:pre-wrap;overflow-wrap:anywhere}
+.print-foot{display:none}
+.divider-note{margin-top:10px;font-size:1.5rem;color:var(--muted)}
+
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;gap:12px}
+  .sidenav{position:sticky;top:var(--toolbar-h);z-index:15;max-height:none;padding:8px;border-radius:12px}
+  .sidenav .navtitle{display:none}
+  .sidenav ol{flex-direction:row;overflow-x:auto;gap:6px}
+  .sidenav a{white-space:nowrap}
+  .sheet,.intro{scroll-margin-top:calc(var(--toolbar-h) + 90px)}
+}
+@media(max-width:680px){
+  .toolbar{align-items:flex-start;flex-direction:column}
+  .grid{grid-template-columns:1fr}
+  .intro,.sheet{padding:18px}
+  h1{font-size:2rem}
+  .measure th,.measure td{padding:5px}
+}
+
 @page{size:A4;margin:13mm 14mm}
 @media print{
- *{-webkit-print-color-adjust:exact;print-color-adjust:exact}html,body{margin:0;background:#fff;color:#172c34;font-size:10pt;line-height:1.45}.toolbar,.notification,.hint.screen-only,.screen-only,.screen-input{display:none!important}.wrap{max-width:none;margin:0;padding:0}.intro{border:0;border-radius:0;padding:0 0 9mm;margin:0;box-shadow:none}.eyebrow{font-size:9pt}h1{font-size:19pt;margin:3mm 0 2mm}h2{font-size:13pt}.sheet{border:0;border-top:1px solid #94b7b8;box-shadow:none;border-radius:0;padding:5mm 0 0;margin:0 0 5mm;break-inside:avoid}.sectionhead{padding:0 0 2mm;margin-bottom:3mm}.grid{gap:3mm 6mm}.field{gap:2px}label.title{font-size:9pt}.print-value{display:block!important;white-space:pre-wrap;overflow-wrap:anywhere;min-height:5mm;border-bottom:1px solid #c9d5d5;padding:1mm 0}.measure th,.measure td{font-size:9pt;padding:2mm}.measure th{background:#e9f1f0}.foot,.divider-note{font-size:8pt}.print-foot{display:block;font-size:8pt;margin-top:5mm;color:#667c80}.pagebreak{break-before:page}.pageavoid{break-inside:avoid}.print-title{display:block!important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{margin:0;background:#fff;color:#2e2019;font-size:11pt;line-height:1.45}
+  .toolbar,.sidenav,.notification,.screen-only,.screen-input{display:none!important}
+  .layout{display:block;max-width:none;margin:0;padding:0}
+  .intro{border:0;border-radius:0;padding:0 0 9mm;margin:0;box-shadow:none;background:#fff}
+  .eyebrow{font-size:9pt}
+  h1{font-size:19pt;margin:3mm 0 2mm}
+  h2{font-size:14pt}
+  h3{font-size:11pt}
+  /* 段落可跨頁，避免整段被推到下一頁留下大片空白 */
+  .sheet{border:0;border-top:1px solid #b8977a;box-shadow:none;border-radius:0;padding:4mm 0 0;margin:0 0 4mm;break-inside:auto;background:#fff}
+  .sectionhead{padding:0 0 2mm;margin-bottom:3mm;break-after:avoid}
+  .grid{gap:2.5mm 6mm}
+  .field{gap:1mm;break-inside:avoid}
+  label.title{font-size:10pt}
+  .print-value{display:block!important;border-bottom:1px solid #d8c7b5;padding:.5mm 0 1mm}
+  .print-value.empty{color:#b39a84;font-size:9pt}
+  .measure{break-inside:auto}
+  .measure tr{break-inside:avoid}
+  .measure th,.measure td{font-size:10pt;padding:1.5mm 2mm}
+  .measure th{background:#f3e7d8}
+  .measure td .print-value{border-bottom:0;padding:0}
+  /* 照片：不印上傳按鈕；沒照片也沒說明的格子不印；整區都空就整區不印 */
+  .photo-input,.photo-remove,.photo-status{display:none!important}
+  .photo-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4mm}
+  .photo-card{background:#fff;padding:2mm;break-inside:avoid}
+  .photo-card.print-skip,.photos.print-skip{display:none!important}
+  .photo-preview{max-height:70mm}
+  .photo-note{min-height:0}
+  .foot,.divider-note{font-size:9pt}
+  .print-foot{display:block;font-size:9pt;margin-top:5mm;color:#7a6352}
 }
 </style>
 </head>
 <body>
-<div class="toolbar"><div><div class="brand">摺頁觀察工作室 <span aria-hidden="true">◩</span></div><div class="minor">完全在瀏覽器內填寫 · 不上傳資料</div></div><div class="actions"><button type="button" onclick="downloadJSON()" title="可自行備份資料，之後再匯入修改">備份填寫資料</button><button type="button" onclick="document.getElementById('import').click()">匯入備份</button><input id="import" type="file" accept="application/json,.json" hidden onchange="importJSON(event)"><button type="button" class="primary" onclick="exportPDF()">列印／儲存 PDF</button></div></div>
-<main class="wrap"><div class="notification">請直接填寫各項觀察內容。完成後按右上角「列印／儲存 PDF」，在列印視窗選擇「另存為 PDF」。本頁不需要帳號或資料庫；關閉頁面後不會自動儲存填寫內容，若想之後修改，可先使用「備份填寫資料」（包含已加入的照片）。備份檔內含姓名與照片，請勿任意轉傳。</div>
-<header class="intro"><div class="eyebrow">TYPOGRAPHY / MULTILINGUAL EDITORIAL DESIGN</div><h1>多語系摺頁排版觀察紀錄表</h1><p class="hint screen-only">觀察一份現成旅遊或休閒摺頁，附上文宣照片，記錄折法、資訊層級、多語系排版差異與實際尺寸。只記錄能由樣本證實的內容；無法確認的地方請註明。</p><div class="grid" style="margin-top:14px"><div class="field"><label class="title" for="student">姓名／組別</label><input id="student" type="text" placeholder="例如：第3組／王同學"></div><div class="field"><label class="title" for="date">觀察日期</label><input id="date" type="text" placeholder="例如：2026/11/18"></div><div class="field"><label class="title" for="name">文宣名稱／主題</label><input id="name" type="text" placeholder="例如：○○市觀光導覽"></div><div class="field"><label class="title" for="langs">樣本語言</label><input id="langs" type="text" placeholder="例如：中文、英文、日文"></div></div></header>
-<section class="sheet"><div class="sectionhead"><h2><span class="no">01</span> 摺頁結構與閱讀順序</h2></div><div class="grid"><div class="field"><label class="title" for="fold">折法／面板數量</label><input id="fold" type="text" placeholder="例如：三摺／6個面板"></div><div class="field"><label class="title" for="dimensions">展開／折疊尺寸（mm）</label><input id="dimensions" type="text" placeholder="例如：展開 420 × 297 mm"></div><div class="field full"><label class="title" for="route">從封面到完整展開的閱讀動線</label><textarea id="route" placeholder="請描述第一眼看到什麼、打開哪一面、如何閱讀各區塊"></textarea></div></div></section>
+<div class="toolbar" id="toolbar"><div><div class="brand">摺頁觀察工作室 <span aria-hidden="true">◩</span></div><div class="minor">完全在瀏覽器內填寫 · 不上傳資料</div></div><div class="actions"><button type="button" onclick="downloadJSON()" title="可自行備份資料，之後再匯入修改">備份填寫資料</button><button type="button" onclick="document.getElementById('import').click()">匯入備份</button><input id="import" type="file" accept="application/json,.json" hidden onchange="importJSON(event)"><button type="button" class="primary" onclick="exportPDF()">列印／儲存 PDF</button></div></div>
+
+<div class="layout">
+<nav class="sidenav" aria-label="填寫段落">
+  <div class="navtitle">填寫段落</div>
+  <ol>
+    <li><a href="#sec-basic"><span class="n">◎</span><span>基本資料</span></a></li>
+    <li><a href="#sec-01"><span class="n">01</span><span>摺頁結構與閱讀順序</span></a></li>
+    <li><a href="#photos"><span class="n">照片</span><span>文宣照片與佐證</span></a></li>
+    <li><a href="#sec-02"><span class="n">02</span><span>文字、段落與資訊層級</span></a></li>
+    <li><a href="#sec-03"><span class="n">03</span><span>多語系版面比較</span></a></li>
+    <li><a href="#sec-04"><span class="n">04</span><span>排版尺寸丈量</span></a></li>
+    <li><a href="#sec-05"><span class="n">05</span><span>資訊傳達與設計反思</span></a></li>
+  </ol>
+</nav>
+
+<main class="wrap">
+<div class="notification">請直接填寫各項觀察內容。完成後按右上角「列印／儲存 PDF」，在列印視窗選擇「另存為 PDF」。本頁不需要帳號或資料庫；關閉頁面後不會自動儲存填寫內容，若想之後修改，可先使用「備份填寫資料」（包含已加入的照片）。備份檔內含姓名與照片，請勿任意轉傳。</div>
+
+<header class="intro" id="sec-basic"><div class="eyebrow">TYPOGRAPHY / MULTILINGUAL EDITORIAL DESIGN</div><h1>多語系摺頁排版觀察紀錄表</h1><p class="hint screen-only">觀察一份現成旅遊或休閒摺頁，附上文宣照片，記錄折法、資訊層級、多語系排版差異與實際尺寸。只記錄能由樣本證實的內容；無法確認的地方請註明。</p><div class="grid" style="margin-top:14px"><div class="field full"><label class="title" for="student">姓名／組別</label><input id="student" type="text" placeholder="例如：第3組／王同學"></div><div class="field"><label class="title" for="name">文宣名稱／主題</label><input id="name" type="text" placeholder="例如：○○市觀光導覽"></div><div class="field"><label class="title" for="langs">樣本語言</label><input id="langs" type="text" placeholder="例如：中文、英文、日文"></div></div></header>
+
+<section class="sheet" id="sec-01"><div class="sectionhead"><h2><span class="no">01</span> 摺頁結構與閱讀順序</h2></div><div class="grid"><div class="field"><label class="title" for="fold">折法／面板數量</label><input id="fold" type="text" placeholder="例如：三摺／6個面板"></div><div class="field"><label class="title" for="dimensions">展開／折疊尺寸（mm）</label><input id="dimensions" type="text" placeholder="例如：展開 420 × 297 mm"></div><div class="field full"><label class="title" for="route">從封面到完整展開的閱讀動線</label><textarea id="route" placeholder="請描述第一眼看到什麼、打開哪一面、如何閱讀各區塊"></textarea></div></div></section>
+
 <section class="sheet photos" id="photos"><div class="sectionhead"><h2><span class="no">照片</span> 文宣照片與排版觀察佐證</h2></div><p class="hint screen-only">可加入最多三張照片，建議拍攝封面、完整展開面與字級／行距細節。照片只在你的裝置上處理，會一起出現在 PDF 中。</p><div class="photo-grid" style="margin-top:12px">
 <div class="photo-card photo-empty" data-photo="0"><h3>01 封面／折疊狀態</h3><input class="photo-input" type="file" accept="image/*" aria-label="上傳封面照片" onchange="addPhoto(event,0)"><img class="photo-preview" alt="封面照片預覽"><div class="photo-status">尚未加入照片</div><textarea class="photo-note" placeholder="照片說明：例如封面標題與第一閱讀順序"></textarea><button class="photo-remove" type="button" onclick="removePhoto(0)" hidden>移除照片</button></div>
 <div class="photo-card photo-empty" data-photo="1"><h3>02 完整展開面</h3><input class="photo-input" type="file" accept="image/*" aria-label="上傳展開面照片" onchange="addPhoto(event,1)"><img class="photo-preview" alt="展開面照片預覽"><div class="photo-status">尚未加入照片</div><textarea class="photo-note" placeholder="照片說明：例如折線、格線或欄位"></textarea><button class="photo-remove" type="button" onclick="removePhoto(1)" hidden>移除照片</button></div>
 <div class="photo-card photo-empty" data-photo="2"><h3>03 字體／版面細節</h3><input class="photo-input" type="file" accept="image/*" aria-label="上傳排版細節照片" onchange="addPhoto(event,2)"><img class="photo-preview" alt="排版細節照片預覽"><div class="photo-status">尚未加入照片</div><textarea class="photo-note" placeholder="照片說明：例如中英日文字級與行距差異"></textarea><button class="photo-remove" type="button" onclick="removePhoto(2)" hidden>移除照片</button></div>
 </div></section>
-<section class="sheet"><div class="sectionhead"><h2><span class="no">02</span> 文字、段落與資訊層級</h2></div><div class="grid"><div class="field full"><label class="title" for="hierarchy">前三個最容易注意到的資訊（依序）</label><input id="hierarchy" type="text" placeholder="1. ... 2. ... 3. ..."></div><div class="field"><label class="title" for="layout">欄數／格線／對齊方式</label><textarea id="layout" placeholder="例如：左右雙欄、標題靠左、圖片跨欄"></textarea></div><div class="field"><label class="title" for="paragraph">段落切分與留白觀察</label><textarea id="paragraph" placeholder="例如：短段落、以色塊分群、段距大於行距"></textarea></div></div></section>
-<section class="sheet pagebreak"><div class="sectionhead"><h2><span class="no">03</span> 多語系版面比較</h2></div><div class="grid"><div class="field"><label class="title" for="common">哪些排版設定保持相同？</label><textarea id="common" placeholder="格線、顏色、圖片、欄位等"></textarea></div><div class="field"><label class="title" for="changes">哪些排版設定因語言而調整？</label><textarea id="changes" placeholder="換行、段落、字級、圖片比例等"></textarea></div><div class="field full"><label class="title" for="completeness">不同語言內容是否完整對應？有無無法確認的地方？</label><textarea id="completeness" placeholder="可觀察標題、項目數、時間、數字、電話、地址等；不懂的語言請註記待查證"></textarea></div></div></section>
-<section class="sheet"><div class="sectionhead"><h2><span class="no">04</span> 排版尺寸丈量</h2></div><table class="measure"><thead><tr><th style="width:23%">項目</th><th style="width:24%">測量值／單位</th><th>觀察備註</th></tr></thead><tbody><tr><td>標題字級</td><td><input aria-label="標題字級測量" type="text" placeholder="估計 __ pt"></td><td><input aria-label="標題字級備註" type="text" placeholder="字型／不同語言差異"></td></tr><tr><td>內文字級</td><td><input aria-label="內文字級測量" type="text" placeholder="估計 __ pt"></td><td><input aria-label="內文字級備註" type="text"></td></tr><tr><td>行距（基線距）</td><td><input aria-label="行距測量" type="text" placeholder="__ mm"></td><td><input aria-label="行距備註" type="text"></td></tr><tr><td>文字欄寬</td><td><input aria-label="欄寬測量" type="text" placeholder="__ mm"></td><td><input aria-label="欄寬備註" type="text"></td></tr><tr><td>段落間距</td><td><input aria-label="段距測量" type="text" placeholder="__ mm"></td><td><input aria-label="段距備註" type="text"></td></tr><tr><td>邊界留白</td><td><input aria-label="留白測量" type="text" placeholder="__ mm"></td><td><input aria-label="留白備註" type="text"></td></tr></tbody></table><p class="foot">注意：10pt ≈ 3.53mm 只代表字級單位換算，不等於實際印出的字形高度。請將估計字級與實際測量分開標示。</p></section>
-<section class="sheet"><div class="sectionhead"><h2><span class="no">05</span> 資訊傳達與設計反思</h2></div><div class="grid"><div class="field full"><label class="title" for="important">這份摺頁最重要的三項資訊</label><textarea id="important" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea></div><div class="field full"><label class="title" for="benefit">值得保留的設計方式，以及原因</label><textarea id="benefit" placeholder="具體指出你觀察到的做法"></textarea></div><div class="field full"><label class="title" for="summary">本次觀察的三項發現</label><textarea id="summary" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea></div></div><div class="print-foot">課程：排版印刷｜多語系摺頁分析　　※ 本文件由學生在本機瀏覽器填寫後列印成 PDF，資料未傳送至伺服器。</div></section>
+
+<section class="sheet" id="sec-02"><div class="sectionhead"><h2><span class="no">02</span> 文字、段落與資訊層級</h2></div><div class="grid"><div class="field full"><label class="title" for="hierarchy">前三個最容易注意到的資訊（依序）</label><input id="hierarchy" type="text" placeholder="1. ... 2. ... 3. ..."></div><div class="field"><label class="title" for="layout">欄數／格線／對齊方式</label><textarea id="layout" placeholder="例如：左右雙欄、標題靠左、圖片跨欄"></textarea></div><div class="field"><label class="title" for="paragraph">段落切分與留白觀察</label><textarea id="paragraph" placeholder="例如：短段落、以色塊分群、段距大於行距"></textarea></div></div></section>
+
+<section class="sheet" id="sec-03"><div class="sectionhead"><h2><span class="no">03</span> 多語系版面比較</h2></div><div class="grid"><div class="field"><label class="title" for="common">哪些排版設定保持相同？</label><textarea id="common" placeholder="格線、顏色、圖片、欄位等"></textarea></div><div class="field"><label class="title" for="changes">哪些排版設定因語言而調整？</label><textarea id="changes" placeholder="換行、段落、字級、圖片比例等"></textarea></div><div class="field full"><label class="title" for="completeness">不同語言內容是否完整對應？有無無法確認的地方？</label><textarea id="completeness" placeholder="可觀察標題、項目數、時間、數字、電話、地址等；不懂的語言請註記待查證"></textarea></div></div></section>
+
+<section class="sheet" id="sec-04"><div class="sectionhead"><h2><span class="no">04</span> 排版尺寸丈量</h2></div><table class="measure"><thead><tr><th style="width:23%">項目</th><th style="width:24%">測量值／單位</th><th>觀察備註</th></tr></thead><tbody><tr><td>標題字級</td><td><input aria-label="標題字級測量" type="text" placeholder="估計 __ pt"></td><td><input aria-label="標題字級備註" type="text" placeholder="字型／不同語言差異"></td></tr><tr><td>內文字級</td><td><input aria-label="內文字級測量" type="text" placeholder="估計 __ pt"></td><td><input aria-label="內文字級備註" type="text"></td></tr><tr><td>行距（基線距）</td><td><input aria-label="行距測量" type="text" placeholder="__ mm"></td><td><input aria-label="行距備註" type="text"></td></tr><tr><td>文字欄寬</td><td><input aria-label="欄寬測量" type="text" placeholder="__ mm"></td><td><input aria-label="欄寬備註" type="text"></td></tr><tr><td>段落間距</td><td><input aria-label="段距測量" type="text" placeholder="__ mm"></td><td><input aria-label="段距備註" type="text"></td></tr><tr><td>邊界留白</td><td><input aria-label="留白測量" type="text" placeholder="__ mm"></td><td><input aria-label="留白備註" type="text"></td></tr></tbody></table><p class="foot">注意：10pt ≈ 3.53mm 只代表字級單位換算，不等於實際印出的字形高度。請將估計字級與實際測量分開標示。</p></section>
+
+<section class="sheet" id="sec-05"><div class="sectionhead"><h2><span class="no">05</span> 資訊傳達與設計反思</h2></div><div class="grid"><div class="field full"><label class="title" for="important">這份摺頁最重要的三項資訊</label><textarea id="important" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea></div><div class="field full"><label class="title" for="benefit">值得保留的設計方式，以及原因</label><textarea id="benefit" placeholder="具體指出你觀察到的做法"></textarea></div><div class="field full"><label class="title" for="summary">本次觀察的三項發現</label><textarea id="summary" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea><div class="print-foot">課程：排版印刷｜多語系摺頁分析　　※ 本文件由學生在本機瀏覽器填寫後列印成 PDF，資料未傳送至伺服器。</div></div></div></section>
+
 <div class="divider-note screen-only">如需繳交PDF：點「列印／儲存 PDF」→目的地選擇「另存為 PDF」→紙張選 A4 → 儲存。建議先在列印預覽檢查頁面與文字完整性。</div>
 </main>
+</div>
+
 <script>
 const photos=[null,null,null];
+
+/* 工具列高度：讓左側選單與跳轉位置不被遮住 */
+function syncToolbarHeight(){
+  const h=document.getElementById('toolbar').offsetHeight;
+  document.documentElement.style.setProperty('--toolbar-h',h+'px');
+}
+window.addEventListener('resize',syncToolbarHeight);
+syncToolbarHeight();
+
+/* 左側選單：目前所在段落高亮 */
+(function(){
+  const links=[...document.querySelectorAll('.sidenav a')];
+  const targets=links.map(a=>document.querySelector(a.getAttribute('href')));
+  function setActive(id){
+    links.forEach(a=>{
+      const on=a.getAttribute('href')==='#'+id;
+      a.classList.toggle('active',on);
+      if(on&&window.matchMedia('(max-width:900px)').matches)a.scrollIntoView({block:'nearest',inline:'nearest'});
+    });
+  }
+  links.forEach(a=>a.addEventListener('click',()=>setActive(a.getAttribute('href').slice(1))));
+  function onScroll(){
+    const offset=(document.getElementById('toolbar').offsetHeight||0)+120;
+    let current=targets[0];
+    for(const t of targets){if(t&&t.getBoundingClientRect().top-offset<=0)current=t;}
+    if(window.innerHeight+window.scrollY>=document.body.scrollHeight-4)current=targets[targets.length-1];
+    if(current)setActive(current.id);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+
 function paintPhoto(i){const card=document.querySelector(`[data-photo="${i}"]`),img=card.querySelector('img'),remove=card.querySelector('.photo-remove');if(photos[i]){img.src=photos[i];img.classList.add('visible');card.classList.remove('photo-empty');card.querySelector('.photo-status').textContent='已加入照片（會包含在 PDF 和 JSON 備份中）';remove.hidden=false;}else{img.removeAttribute('src');img.classList.remove('visible');card.classList.add('photo-empty');card.querySelector('.photo-status').textContent='尚未加入照片';remove.hidden=true;}}
 async function addPhoto(event,i){const f=event.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){alert('請選擇圖片檔');return;}try{const u=URL.createObjectURL(f);const image=await new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=u;});const max=1600,scale=Math.min(1,max/Math.max(image.naturalWidth,image.naturalHeight));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(image.naturalWidth*scale));c.height=Math.max(1,Math.round(image.naturalHeight*scale));c.getContext('2d').drawImage(image,0,0,c.width,c.height);photos[i]=c.toDataURL('image/jpeg',0.83);URL.revokeObjectURL(u);paintPhoto(i);}catch(e){alert('圖片讀取失敗，請改用 JPG 或 PNG。');}event.target.value='';}
 function removePhoto(i){photos[i]=null;paintPhoto(i);}
-const fields=()=>[...document.querySelectorAll('input:not([type=file]),textarea,select')];
+const fields=()=>[...document.querySelectorAll('main input:not([type=file]),main textarea,main select')];
 function exportPDF(){
   document.querySelectorAll('.print-value').forEach(x=>x.remove());
   fields().forEach(el=>{
-    let p=document.createElement('div');p.className='print-value';p.textContent=el.value||' ';el.insertAdjacentElement('afterend',p);el.classList.add('screen-input');
+    let v=el.value.trim(),p=document.createElement('div');
+    p.className='print-value'+(v?'':' empty');p.textContent=v?el.value:'（未填）';
+    el.insertAdjacentElement('afterend',p);el.classList.add('screen-input');
   });
-  // Wait for photo rendering before opening the print dialog.
+  /* 依內容決定照片區要印哪些格子 */
+  let anyPhoto=false;
+  document.querySelectorAll('.photo-card').forEach(card=>{
+    let i=+card.dataset.photo,note=card.querySelector('.photo-note').value.trim();
+    let keep=!!photos[i]||!!note;card.classList.toggle('print-skip',!keep);if(keep)anyPhoto=true;
+  });
+  document.getElementById('photos').classList.toggle('print-skip',!anyPhoto);
   Promise.all([...document.querySelectorAll('.photo-preview.visible')].map(img=>img.decode?.().catch(()=>{})||Promise.resolve())).then(()=>setTimeout(()=>window.print(),120));
 }
-function downloadJSON(){let data={version:2,photos,fields:fields().map(f=>({id:f.id||null,type:f.type,value:f.value}))};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});let url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='多語系摺頁分析_填寫備份.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function downloadJSON(){let data={version:3,photos,fields:fields().map(f=>({id:f.id||null,type:f.type,value:f.value}))};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});let url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='多語系摺頁分析_填寫備份.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 async function importJSON(ev){
   let file=ev.target.files?.[0];if(!file)return;
   try{
     if(file.size>30*1024*1024)throw Error('檔案過大');
     let data=JSON.parse(await file.text());
     if(!data||!Array.isArray(data.fields))throw Error('格式不同');
-    let saved=data.fields.filter(f=>f&&f.type!=='checkbox');
     let current=fields();
+    let currentIds=new Set(current.map(f=>f.id).filter(Boolean));
+    /* 舊版備份含「觀察日期」等已移除欄位：有 id 但本頁沒有的欄位直接略過 */
+    let saved=data.fields.filter(f=>f&&f.type!=='checkbox'&&!(f.id&&!currentIds.has(f.id)));
     if(saved.length!==current.length)throw Error('格式不同');
     current.forEach((f,i)=>{if(f.id&&saved[i].id&&f.id!==saved[i].id)throw Error('欄位不符');});
     current.forEach((f,i)=>{f.value=typeof saved[i].value==='string'?saved[i].value:''});
@@ -67,6 +246,6 @@ async function importJSON(ev){
   }catch(e){alert('無法匯入此備份檔，請確認是本頁匯出的 JSON。')}
   ev.target.value='';
 }
-window.addEventListener('afterprint',()=>{document.querySelectorAll('.screen-input').forEach(e=>e.classList.remove('screen-input'));document.querySelectorAll('.print-value').forEach(e=>e.remove())});
+window.addEventListener('afterprint',()=>{document.querySelectorAll('.screen-input').forEach(e=>e.classList.remove('screen-input'));document.querySelectorAll('.print-value').forEach(e=>e.remove());document.querySelectorAll('.print-skip').forEach(e=>e.classList.remove('print-skip'))});
 </script>
 </body></html>
