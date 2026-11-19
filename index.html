@@ -61,6 +61,10 @@ textarea{min-height:110px;resize:vertical}
 .measure th{background:var(--accent-soft);text-align:left}
 .measure td input{min-width:0}
 .foot{color:var(--muted);font-size:1.5rem;margin-top:10px}
+.subhead{margin:26px 0 6px;color:var(--accent)}
+.measure tfoot th,.measure tfoot td{background:var(--accent-soft);font-weight:700}
+.pw-check{font-weight:400;color:var(--muted);margin-left:.5em}
+.panels+.field{margin-top:14px}
 .notification{background:#f6e6d1;border:1px solid #e0c3a0;padding:14px 18px;border-radius:12px;margin-bottom:16px;font-size:1.5rem}
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
 .photo-card{border:1px solid var(--line);border-radius:12px;padding:12px;min-width:0;background:#fffdf9}
@@ -119,9 +123,12 @@ textarea{min-height:110px;resize:vertical}
   .photo-input,.photo-remove,.photo-status{display:none!important}
   .photo-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4mm}
   .photo-card{background:#fff;padding:2mm;break-inside:avoid}
-  .photo-card.print-skip,.photos.print-skip{display:none!important}
+  .photo-card.print-skip,.photos.print-skip,.panels tr.print-skip{display:none!important}
   .photo-preview{max-height:70mm}
   .photo-note{min-height:0}
+  .subhead{font-size:11pt;margin:4mm 0 2mm;break-after:avoid}
+  .pw-check{font-size:9pt}
+  .panels+.field{margin-top:3mm}
   .foot,.divider-note{font-size:9pt}
   .print-foot{display:block;font-size:9pt;margin-top:5mm;color:#7a6352}
 }
@@ -161,7 +168,19 @@ textarea{min-height:110px;resize:vertical}
 
 <section class="sheet" id="sec-03"><div class="sectionhead"><h2><span class="no">03</span> 多語系版面比較</h2></div><div class="grid"><div class="field"><label class="title" for="common">哪些排版設定保持相同？</label><textarea id="common" placeholder="格線、顏色、圖片、欄位等"></textarea></div><div class="field"><label class="title" for="changes">哪些排版設定因語言而調整？</label><textarea id="changes" placeholder="換行、段落、字級、圖片比例等"></textarea></div><div class="field full"><label class="title" for="completeness">不同語言內容是否完整對應？有無無法確認的地方？</label><textarea id="completeness" placeholder="可觀察標題、項目數、時間、數字、電話、地址等；不懂的語言請註記待查證"></textarea></div></div></section>
 
-<section class="sheet" id="sec-04"><div class="sectionhead"><h2><span class="no">04</span> 排版尺寸丈量</h2></div><table class="measure"><thead><tr><th style="width:23%">項目</th><th style="width:24%">測量值／單位</th><th>觀察備註</th></tr></thead><tbody><tr><td>標題字級</td><td><input aria-label="標題字級測量" type="text" placeholder="估計 __ pt"></td><td><input aria-label="標題字級備註" type="text" placeholder="字型／不同語言差異"></td></tr><tr><td>內文字級</td><td><input aria-label="內文字級測量" type="text" placeholder="估計 __ pt"></td><td><input aria-label="內文字級備註" type="text"></td></tr><tr><td>行距（基線距）</td><td><input aria-label="行距測量" type="text" placeholder="__ mm"></td><td><input aria-label="行距備註" type="text"></td></tr><tr><td>文字欄寬</td><td><input aria-label="欄寬測量" type="text" placeholder="__ mm"></td><td><input aria-label="欄寬備註" type="text"></td></tr><tr><td>段落間距</td><td><input aria-label="段距測量" type="text" placeholder="__ mm"></td><td><input aria-label="段距備註" type="text"></td></tr><tr><td>邊界留白</td><td><input aria-label="留白測量" type="text" placeholder="__ mm"></td><td><input aria-label="留白備註" type="text"></td></tr></tbody></table><p class="foot">注意：10pt ≈ 3.53mm 只代表字級單位換算，不等於實際印出的字形高度。請將估計字級與實際測量分開標示。</p></section>
+<section class="sheet" id="sec-04"><div class="sectionhead"><h2><span class="no">04</span> 排版尺寸丈量</h2></div><table class="measure"><thead><tr><th style="width:23%">項目</th><th style="width:24%">測量值／單位</th><th>觀察備註</th></tr></thead><tbody><tr><td>標題字級</td><td><input aria-label="標題字級測量" type="text" placeholder="估計 __ pt"></td><td><input aria-label="標題字級備註" type="text" placeholder="字型／不同語言差異"></td></tr><tr><td>內文字級</td><td><input aria-label="內文字級測量" type="text" placeholder="估計 __ pt"></td><td><input aria-label="內文字級備註" type="text"></td></tr><tr><td>行距（基線距）</td><td><input aria-label="行距測量" type="text" placeholder="__ mm"></td><td><input aria-label="行距備註" type="text"></td></tr><tr><td>文字欄寬</td><td><input aria-label="欄寬測量" type="text" placeholder="__ mm"></td><td><input aria-label="欄寬備註" type="text"></td></tr><tr><td>段落間距</td><td><input aria-label="段距測量" type="text" placeholder="__ mm"></td><td><input aria-label="段距備註" type="text"></td></tr><tr><td>邊界留白</td><td><input aria-label="留白測量" type="text" placeholder="__ mm"></td><td><input aria-label="留白備註" type="text"></td></tr></tbody></table><p class="foot">注意：10pt ≈ 3.53mm 只代表字級單位換算，不等於實際印出的字形高度。請將估計字級與實際測量分開標示。</p>
+<h3 class="subhead">各面板寬度（同一面，由左到右）</h3>
+<p class="hint screen-only">把摺頁攤開，量同一面每一格面板的寬度。折進內側的面板通常會窄 1–3mm，才不會頂到折線、折不平。用不到的列留空即可。</p>
+<table class="measure panels"><thead><tr><th style="width:12%">面板</th><th style="width:30%">位置／內容</th><th style="width:20%">寬度（mm）</th><th>觀察備註</th></tr></thead><tbody>
+<tr><td>1</td><td><input id="pn1" type="text" aria-label="面板1位置" placeholder="例如：封底"></td><td><input id="pw1" class="pw" type="text" inputmode="decimal" aria-label="面板1寬度" placeholder="__ mm"></td><td><input id="pr1" type="text" aria-label="面板1備註"></td></tr>
+<tr><td>2</td><td><input id="pn2" type="text" aria-label="面板2位置" placeholder="例如：內摺頁"></td><td><input id="pw2" class="pw" type="text" inputmode="decimal" aria-label="面板2寬度" placeholder="__ mm"></td><td><input id="pr2" type="text" aria-label="面板2備註" placeholder="例如：比其他面板窄 2mm"></td></tr>
+<tr><td>3</td><td><input id="pn3" type="text" aria-label="面板3位置" placeholder="例如：封面"></td><td><input id="pw3" class="pw" type="text" inputmode="decimal" aria-label="面板3寬度" placeholder="__ mm"></td><td><input id="pr3" type="text" aria-label="面板3備註"></td></tr>
+<tr><td>4</td><td><input id="pn4" type="text" aria-label="面板4位置"></td><td><input id="pw4" class="pw" type="text" inputmode="decimal" aria-label="面板4寬度" placeholder="__ mm"></td><td><input id="pr4" type="text" aria-label="面板4備註"></td></tr>
+<tr><td>5</td><td><input id="pn5" type="text" aria-label="面板5位置"></td><td><input id="pw5" class="pw" type="text" inputmode="decimal" aria-label="面板5寬度" placeholder="__ mm"></td><td><input id="pr5" type="text" aria-label="面板5備註"></td></tr>
+<tr><td>6</td><td><input id="pn6" type="text" aria-label="面板6位置"></td><td><input id="pw6" class="pw" type="text" inputmode="decimal" aria-label="面板6寬度" placeholder="__ mm"></td><td><input id="pr6" type="text" aria-label="面板6備註"></td></tr>
+</tbody><tfoot><tr><th colspan="2">寬度合計</th><td colspan="2"><span id="pwSum">—</span><span class="pw-check">（請和 01 段的展開寬度對照）</span></td></tr></tfoot></table>
+<div class="field full"><label class="title" for="panelDiff">面板寬度有哪些差異？為什麼要這樣設計？</label><textarea id="panelDiff" placeholder="例如：內摺頁比封面窄 3mm，折進去時才不會卡在折線上"></textarea></div>
+</section>
 
 <section class="sheet" id="sec-05"><div class="sectionhead"><h2><span class="no">05</span> 資訊傳達與設計反思</h2></div><div class="grid"><div class="field full"><label class="title" for="important">這份摺頁最重要的三項資訊</label><textarea id="important" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea></div><div class="field full"><label class="title" for="benefit">值得保留的設計方式，以及原因</label><textarea id="benefit" placeholder="具體指出你觀察到的做法"></textarea></div><div class="field full"><label class="title" for="summary">本次觀察的三項發現</label><textarea id="summary" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea><div class="print-foot">課程：排版印刷｜多語系摺頁分析　　※ 本文件由學生在本機瀏覽器填寫後列印成 PDF，資料未傳送至伺服器。</div></div></div></section>
 
@@ -203,6 +222,16 @@ syncToolbarHeight();
   onScroll();
 })();
 
+/* 面板寬度合計 */
+function updatePanelSum(){
+  let vals=[...document.querySelectorAll('.pw')].map(e=>parseFloat(e.value.replace(/[^\d.]/g,''))).filter(n=>!isNaN(n));
+  let out=document.getElementById('pwSum');
+  if(!vals.length){out.textContent='—';return;}
+  let sum=vals.reduce((a,b)=>a+b,0);
+  out.textContent=`${Math.round(sum*10)/10} mm（${vals.length} 格，最寬與最窄差 ${Math.round((Math.max(...vals)-Math.min(...vals))*10)/10} mm）`;
+}
+document.querySelectorAll('.pw').forEach(e=>e.addEventListener('input',updatePanelSum));
+
 function paintPhoto(i){const card=document.querySelector(`[data-photo="${i}"]`),img=card.querySelector('img'),remove=card.querySelector('.photo-remove');if(photos[i]){img.src=photos[i];img.classList.add('visible');card.classList.remove('photo-empty');card.querySelector('.photo-status').textContent='已加入照片（會包含在 PDF 和 JSON 備份中）';remove.hidden=false;}else{img.removeAttribute('src');img.classList.remove('visible');card.classList.add('photo-empty');card.querySelector('.photo-status').textContent='尚未加入照片';remove.hidden=true;}}
 async function addPhoto(event,i){const f=event.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){alert('請選擇圖片檔');return;}try{const u=URL.createObjectURL(f);const image=await new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=u;});const max=1600,scale=Math.min(1,max/Math.max(image.naturalWidth,image.naturalHeight));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(image.naturalWidth*scale));c.height=Math.max(1,Math.round(image.naturalHeight*scale));c.getContext('2d').drawImage(image,0,0,c.width,c.height);photos[i]=c.toDataURL('image/jpeg',0.83);URL.revokeObjectURL(u);paintPhoto(i);}catch(e){alert('圖片讀取失敗，請改用 JPG 或 PNG。');}event.target.value='';}
 function removePhoto(i){photos[i]=null;paintPhoto(i);}
@@ -221,22 +250,30 @@ function exportPDF(){
     let keep=!!photos[i]||!!note;card.classList.toggle('print-skip',!keep);if(keep)anyPhoto=true;
   });
   document.getElementById('photos').classList.toggle('print-skip',!anyPhoto);
+  /* 面板寬度：整列都沒填就不印 */
+  document.querySelectorAll('.panels tbody tr').forEach(tr=>{
+    tr.classList.toggle('print-skip',[...tr.querySelectorAll('input')].every(i=>!i.value.trim()));
+  });
   Promise.all([...document.querySelectorAll('.photo-preview.visible')].map(img=>img.decode?.().catch(()=>{})||Promise.resolve())).then(()=>setTimeout(()=>window.print(),120));
 }
-function downloadJSON(){let data={version:3,photos,fields:fields().map(f=>({id:f.id||null,type:f.type,value:f.value}))};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});let url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='多語系摺頁分析_填寫備份.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function downloadJSON(){let data={version:4,photos,fields:fields().map(f=>({id:f.id||null,type:f.type,value:f.value}))};let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});let url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='多語系摺頁分析_填寫備份.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 async function importJSON(ev){
   let file=ev.target.files?.[0];if(!file)return;
   try{
     if(file.size>30*1024*1024)throw Error('檔案過大');
     let data=JSON.parse(await file.text());
     if(!data||!Array.isArray(data.fields))throw Error('格式不同');
-    let current=fields();
-    let currentIds=new Set(current.map(f=>f.id).filter(Boolean));
-    /* 舊版備份含「觀察日期」等已移除欄位：有 id 但本頁沒有的欄位直接略過 */
-    let saved=data.fields.filter(f=>f&&f.type!=='checkbox'&&!(f.id&&!currentIds.has(f.id)));
-    if(saved.length!==current.length)throw Error('格式不同');
-    current.forEach((f,i)=>{if(f.id&&saved[i].id&&f.id!==saved[i].id)throw Error('欄位不符');});
-    current.forEach((f,i)=>{f.value=typeof saved[i].value==='string'?saved[i].value:''});
+    /* 有 id 的欄位依 id 對應（新增欄位留空、已移除欄位略過）；沒 id 的欄位依順序對應 */
+    let saved=data.fields.filter(f=>f&&typeof f==='object'&&f.type!=='checkbox');
+    let byId=new Map(saved.filter(f=>f.id).map(f=>[f.id,f.value]));
+    let savedNoId=saved.filter(f=>!f.id);
+    let current=fields(),currentNoId=current.filter(f=>!f.id);
+    if(savedNoId.length!==currentNoId.length)throw Error('格式不同');
+    current.forEach(f=>{
+      let v=f.id?byId.get(f.id):savedNoId[currentNoId.indexOf(f)].value;
+      f.value=typeof v==='string'?v:'';
+    });
+    updatePanelSum();
     for(let i=0;i<3;i++){
       let p=data.photos?.[i];
       photos[i]=typeof p==='string'&&/^data:image\/(jpeg|png|webp);base64,/.test(p)?p:null;
